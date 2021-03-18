@@ -5,6 +5,28 @@
         </h2>
     </x-slot>
 
+    <section class="px-12">
+        <main class="container max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="lg:flex lg:justify-between pt-8">
+                <div class="lg:w-1/6">
+                    @include('_sidbar-links')
+                </div>
+                <div class="lg:flex-1 lg:mx-10" style="max-width: 700px">
+                    @include('_publish-tweet-panel')
+                    
+                    <div class="border border-gray-300 rounded-lg">
+                        @include('_tweet')
+                        @include('_tweet')
+                        @include('_tweet')
+                        @include('_tweet')
+                    </div>
+                </div>
+                <div class="lg:w-1/6 bg-blue-100 rounded-lg p-4">
+                    @include('_friends-list')
+                </div>
+            </div>
+        </main>
+    </section>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
