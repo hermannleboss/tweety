@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TweetsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +23,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::post('/tweets', [TweetsController::class, 'store'] );
+
+Route::get('/home', [HomeController::class, 'index']);
 require __DIR__.'/auth.php';
