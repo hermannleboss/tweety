@@ -12,6 +12,9 @@ module.exports = {
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
+            borderRadiux : {
+                lg:'1.25rem',
+            }
         },
     },
 
