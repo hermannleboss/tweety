@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Followable;
 
 class User extends Authenticatable {
 
@@ -17,11 +18,7 @@ class User extends Authenticatable {
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded=[];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -42,8 +39,8 @@ class User extends Authenticatable {
         'email_verified_at' => 'datetime',
     ];
 
-    public function getAvatarAttribute() {
-        return "https://i.pravatar.cc/200?u=" . $this->email;
+    public function getAvatarAttribute($value) {
+        return asset("storage/".$value);
     }
 
     public function timeline() {
@@ -54,15 +51,37 @@ class User extends Authenticatable {
     }
 
     public function tweets() {
-        return $this->hasMany(Tweet::class);
+        return $this->hasMany(Tweet::class)->latest();
     }
 
     public function follow(User $user) {
         return $this->follows()->save($user);
     }
 
+    public function unFollow(User $user) {
+        return $this->follows()->detach($user);
+    }
+
+    public function toggleFollow(User $user) {
+
+        if ($this->following($user)) {
+            return $this->unFollow($user);
+        } else {
+            return $this->follow($user);
+        }
+    }
+
+    public function following(User $user) {
+        return $this->follows()->where('following_user_id', $user->id)->exists();
+    }
+
     public function follows() {
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id');
+    }
+
+    public function path($append = '') {
+        $path = route('profile', $this->username);
+        return $append ? "{$path}/{$append}" : $path;
     }
 
 }
