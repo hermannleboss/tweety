@@ -1,4 +1,4 @@
-<div class="border border-blue-400 rounded-lg py-6 px-8 mb-8 bg-white">
+<div class="border border-blue-400 rounded-lg py-6 px-8 mb-8 bg-white rounded-3xl  shadow-lg">
     <form action="/tweets" method="POST">
         @csrf
         <textarea

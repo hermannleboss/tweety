@@ -33,7 +33,7 @@
                 Avatar
             </label>
             <div class="flex">
-                <input type="file" name="avatar" id="avatar" class="border border-gray-400 p-2 w-full" value="{{$user->avatar}}"  required>
+                <input type="file" name="avatar" id="avatar" class="border border-gray-400 p-2 w-full" value="{{$user->avatar}}">
                 @error('avatar')
                 <p class="text-red-500 text-xs mt-2">{{$message}}</p>
                 @enderror

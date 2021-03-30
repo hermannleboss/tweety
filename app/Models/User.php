@@ -18,7 +18,7 @@ class User extends Authenticatable {
      *
      * @var array
      */
-    protected $guarded=[];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -40,7 +40,19 @@ class User extends Authenticatable {
     ];
 
     public function getAvatarAttribute($value) {
-        return asset("storage/".$value);
+        $avatar = null;
+        if ($value) {
+            $avatar = "storage/" . $value;
+        } else {
+
+            $avatar = 'img/default-avatar.png';
+        }
+
+        return asset($avatar);
+    }
+
+    public function setPasswordAttribute($value) {
+        $this->attributes['password'] = bcrypt($value);
     }
 
     public function timeline() {
@@ -64,11 +76,7 @@ class User extends Authenticatable {
 
     public function toggleFollow(User $user) {
 
-        if ($this->following($user)) {
-            return $this->unFollow($user);
-        } else {
-            return $this->follow($user);
-        }
+        $this->follows()->toggle($user);
     }
 
     public function following(User $user) {

@@ -1,3 +1,5 @@
+<div class="bg-white rounded-3xl p-4  shadow-lg">
+    
 <h3 class="font-bold text-xl mb-4" >Following</h3>
 <ul class="space-y-5">
     @forelse(auth()->user()->follows as $user)
@@ -13,3 +15,4 @@
     <li>no friends</li>
     @endforelse
 </ul>
+</div>
