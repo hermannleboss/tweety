@@ -7,7 +7,7 @@
     <header class="mb-6 relative">
         <img src="/img/default-banner.jpg" alt="alt" class="rounded rounded-lg mb-2"/>
         <div class="flex justify-between items-center">
-            <div>
+            <div style="max-width: 270px">
                 <h1 class="font-bold text-2xl mb-2">{{$user->name}}</h1>
                 <p class="text-sm">Joined {{$user->created_at->diffForHumans()}}</p>
             </div>
@@ -44,6 +44,6 @@
 
     </header>
     @include('_timeline', [
-    'tweets'=>$user->tweets
+    'tweets'=>$tweets
     ])
 </x-app-layout>
