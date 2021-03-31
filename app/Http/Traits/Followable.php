@@ -6,20 +6,33 @@
  * and open the template in the editor.
  */
 
-namespace App;
+
+namespace App\Http\Traits;
+
+use App\Models\User;
+
 /**
  * Description of Followable
  *
  * @author hermann
  */
-class Followable {
-    
+trait Followable {
+
     public function follow(User $user) {
         return $this->follows()->save($user);
     }
 
-    public function isFollowing(User $user) {
-        return $this->follows()->save($user);
+    public function unFollow(User $user) {
+        return $this->follows()->detach($user);
+    }
+
+    public function toggleFollow(User $user) {
+
+        $this->follows()->toggle($user);
+    }
+
+    public function following(User $user) {
+        return $this->follows()->where('following_user_id', $user->id)->exists();
     }
 
     public function follows() {

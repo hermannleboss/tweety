@@ -6,12 +6,15 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Followable;
+use \App\Http\Traits\Followable;
+use \App\Http\Traits\Likable;
 
 class User extends Authenticatable {
 
     use HasFactory,
-        Notifiable;
+        Notifiable,
+        Followable,
+        Likable;
 
     /**
      * The attributes that are mass assignable.
@@ -58,33 +61,13 @@ class User extends Authenticatable {
     public function timeline() {
         $friends = $this->follows()->pluck('id');
         return Tweet::whereIn('user_id', $friends)
+                        ->withLikes()
                         ->orWhere('user_id', $this->id)
-                        ->latest()->paginate(3);
+                        ->latest()->paginate(50);
     }
 
     public function tweets() {
         return $this->hasMany(Tweet::class)->latest();
-    }
-
-    public function follow(User $user) {
-        return $this->follows()->save($user);
-    }
-
-    public function unFollow(User $user) {
-        return $this->follows()->detach($user);
-    }
-
-    public function toggleFollow(User $user) {
-
-        $this->follows()->toggle($user);
-    }
-
-    public function following(User $user) {
-        return $this->follows()->where('following_user_id', $user->id)->exists();
-    }
-
-    public function follows() {
-        return $this->belongsToMany(User::class, 'follows', 'user_id', 'following_user_id');
     }
 
     public function path($append = '') {

@@ -44,6 +44,6 @@
 
     </header>
     @include('_timeline', [
-    'tweets'=>$tweets
+        'tweets'=>$tweets
     ])
 </x-app-layout>

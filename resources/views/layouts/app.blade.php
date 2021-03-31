@@ -13,6 +13,8 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
@@ -48,5 +50,6 @@
                 </div>
             </main>
         </div>
+        <script src="https://unpkg.com/turbolinks"></script>
     </body>
 </html>

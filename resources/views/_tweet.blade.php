@@ -12,5 +12,14 @@
         <p class="text-sm">
             {{$tweet->body}}
         </p>
+        <div class="flex">
+            <x-like-button :tweet='$tweet'>
+                
+            </x-like-button>
+            <x-dislike-button :tweet='$tweet'>
+                
+            </x-dislike-button>
+
+        </div>
     </div>
 </div>
