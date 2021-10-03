@@ -66,6 +66,9 @@ class User extends Authenticatable {
                         ->latest()->paginate(50);
     }
 
+    /**
+     * Return User tweets
+     */
     public function tweets() {
         return $this->hasMany(Tweet::class)->latest();
     }
